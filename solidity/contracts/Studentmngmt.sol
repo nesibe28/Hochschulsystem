@@ -15,6 +15,7 @@ contract Studentmngmt {
 
     address[] studentsAddresses;
     address[] profsAddresses;
+    Course[] coursesArray;
 
     mapping (address => Student) public students;
     mapping (address => Professor) public profs;
@@ -120,6 +121,14 @@ contract Studentmngmt {
 
     }
 
+    function getAllStudentAddresses() public view returns (address[] memory) {
+        return (studentsAddresses);
+    }
+
+    function getAllProfessorAddresses() public view returns (address[] memory) {
+        return (profsAddresses);
+    }
+
     function addNewProfessor(address _profAddress, string memory _fName, string memory _lName) public {
         profs[_profAddress] = Professor(_profAddress, _fName, _lName);
         profsAddresses.push(_profAddress);
@@ -160,12 +169,17 @@ contract Studentmngmt {
         eCourses[_studentAddress].pop();
     }
 
-    function addNewCourse(int[] memory _requiredCourses, string memory _name, int _memberLimit, string memory _degree, int _semester, bool _isCourseRequired, address _createdByProf, bool _available) public onlyProfessor {
+    function addNewCourse(int[] memory _requiredCourses, string memory _name, int _memberLimit, string memory _degree, int _semester, bool _isCourseRequired, address _createdByProf, bool _available) public  {
         courseCount = courseCount + 1;
         courses[courseCount] = Course(courseCount, _name, _memberLimit, 0, _degree, _semester, _isCourseRequired, _createdByProf, _available);
         if(_isCourseRequired) {
             requiredCourses[courseCount] = _requiredCourses;
         }
+        coursesArray.push(Course(courseCount, _name, _memberLimit, 0, _degree, _semester, _isCourseRequired, _createdByProf, _available));
+    }
+
+    function getAllCourses() public view returns (Course[] memory) {
+        return (coursesArray);
     }
 
     function getCourseDetails(int _courseID) public view returns (int, string memory, int, int, string memory, int, bool, address, bool) {

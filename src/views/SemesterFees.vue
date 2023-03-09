@@ -1,5 +1,5 @@
 <template>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg py-12 px-4 sm:px-6 lg:px-8">
+  <div class="relative overflow-x-auto py-12 px-4 sm:px-6 lg:px-8">
     <h2 class="mb-4 text-left text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Semesterbeiträge</h2>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

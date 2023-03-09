@@ -1,17 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () =>
-        import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+    component: Login,
   },
   {
     path: '/modules',
@@ -46,6 +42,13 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
+
+  // TODO: for 404 errors
+  // {
+  //   path: '/:catchAll(.*)',
+  //   component: NotFoundComponent,
+  //   name: 'NotFound',
+  // },
 ]
 
 const router = createRouter({
