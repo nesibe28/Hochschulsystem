@@ -10,7 +10,7 @@
       <div class="flex flex-wrap">
         <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+            <label class="block text-left uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
               Modulname
             </label>
             <input v-model="name" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
@@ -18,15 +18,15 @@
         </div>
         <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+            <label class="block text-left uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
               Maximale Teilnehmeranzahl
             </label>
-            <input v-model="memberLimit" type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" >
+            <input v-model="memberLimit" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" >
           </div>
         </div>
         <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+            <label class="block text-left uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
               Erfordertes Semester
             </label>
             <input v-model="semester" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" >
@@ -34,7 +34,7 @@
         </div>
         <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+            <label class="block text-left uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
               Erforderter Studiengang
             </label>
             <input v-model="degree" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" >
@@ -42,7 +42,7 @@
         </div>
         <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+            <label class="block text-left uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
               Lehrender
             </label>
             <input v-model="teacher" type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" >
@@ -119,132 +119,22 @@
       </tr>
       </thead>
       <tbody>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-          <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
-          <div class="pl-3">
-            <div class="text-base font-semibold">Neil Sims</div>
-            <div class="font-normal text-gray-500">neil.sims@flowbite.com</div>
-          </div>
-        </th>
+      <tr  class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
+          v-for="course in allCourses" :key="course"
+      >
         <td class="px-6 py-4">
-          React Developer
+          {{course.id}}
         </td>
         <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
-          </div>
+          {{course.name}}
         </td>
         <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-        </td>
-      </tr>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="Jese image">
-          <div class="pl-3">
-            <div class="text-base font-semibold">Bonnie Green</div>
-            <div class="font-normal text-gray-500">bonnie@flowbite.com</div>
-          </div>
-        </th>
-        <td class="px-6 py-4">
-          Designer
+          {{course.createdByProf}}
         </td>
         <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
-          </div>
+          {{course.available}}
         </td>
-        <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-        </td>
-      </tr>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-2.jpg" alt="Jese image">
-          <div class="pl-3">
-            <div class="text-base font-semibold">Jese Leos</div>
-            <div class="font-normal text-gray-500">jese@flowbite.com</div>
-          </div>
-        </th>
-        <td class="px-6 py-4">
-          Vue JS Developer
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
-          </div>
-        </td>
-        <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-        </td>
-      </tr>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="Jese image">
-          <div class="pl-3">
-            <div class="text-base font-semibold">Thomas Lean</div>
-            <div class="font-normal text-gray-500">thomes@flowbite.com</div>
-          </div>
-        </th>
-        <td class="px-6 py-4">
-          UI/UX Engineer
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
-          </div>
-        </td>
-        <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-        </td>
-      </tr>
-      <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-3" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-3" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-4.jpg" alt="Jese image">
-          <div class="pl-3">
-            <div class="text-base font-semibold">Leslie Livingston</div>
-            <div class="font-normal text-gray-500">leslie@flowbite.com</div>
-          </div>
-        </th>
-        <td class="px-6 py-4">
-          SEO Specialist
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div> Offline
-          </div>
-        </td>
+
         <td class="px-6 py-4">
           <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
         </td>
@@ -421,8 +311,8 @@ import {useWalletStore} from "@/stores/wallet";
 interface Course {
   id: number
   name: string
-  memberLimit: number
-  memberCount: number
+  memberLimit: string
+  memberCount: string
   degree: string
   semester: string
   isCourseRequired: boolean
@@ -443,7 +333,7 @@ export default defineComponent( {
     const name = ref('')
     const degree = ref('')
     const semester = ref('')
-    const memberLimit = ref(0)
+    const memberLimit = ref('')
     const teacher = ref('')
     const isCourseRequired = ref(false)
     const isAvailable = ref(false)
@@ -469,18 +359,19 @@ export default defineComponent( {
           console.log('allCourses :>> ', data)
           data.forEach((course: any) => {
             allCourses.value.push({
-              id: course.courseID,
+              id: course.ID.toString(),
               name: course.name,
-              memberLimit: course.memberLimit,
-              memberCount: course.memberCount,
+              memberLimit: course.memberLimit.toString(),
+              memberCount: course.memberCount.toString(),
               degree: course.degree,
-              semester: course.semester,
+              semester: course.semester.toString(),
               isCourseRequired: course.isCourseRequired,
               createdByProf: course.createdByProf,
               available: course.available
             })
           })
-          console.log(allCourses.value)
+          console.log()
+          console.log(allCourses.value[5])
         } catch (error) {
           console.error(error)
         }
@@ -503,25 +394,27 @@ export default defineComponent( {
             signer
         )
         try {
-          const transaction = await contract.addNewCourse([], name.value, memberLimit.value, degree.value, semester.value, isCourseRequired.value, teacher.value, isAvailable.value, {
-            gasLimit: 300000,
-          })
-
-          console.log('transaction :>> ', transaction)
+          const transaction = await contract.addNewCourse(
+              [], name.value, memberLimit.value, degree.value, semester.value, isCourseRequired.value, teacher.value, isAvailable.value
+          )
           // wait for the transaction to actually settle in the blockchain
           await transaction.wait()
+          console.log('transaction :>> ', transaction)
+          //@ts-expect-error because why not
+          this.getCourses();
+          console.log('c :>> ', allCourses.value)
           //message.value = ''
           name.value = ''
           degree.value = ''
           semester.value = ''
-          memberLimit.value = 0
+          memberLimit.value = ''
           teacher.value = ''
           isCourseRequired.value = false
           isAvailable.value = false
           requiredCourses.value = []
           trxInProgress.value = false
-          //@ts-expect-error because why not
-          this.getCourses();
+
+
         } catch (error) {
           console.error(error)
           trxInProgress.value = false
@@ -532,6 +425,7 @@ export default defineComponent( {
     return {
       addCourse,
       getCourses,
+      allCourses,
       walletStore,
       name,
       degree,
@@ -546,10 +440,11 @@ export default defineComponent( {
 
   },
   mounted() {
-    if (this.walletStore.walletData !== null) {
-      console.log('There is a wallet connected!')
-      this.getCourses()
+    if (this.walletStore.walletData === null) {
+      console.log('No connected Wallet!')
+      this.$router.push({name:'Home'});
     }
+    this.getCourses();
   },
   computed: {
     accAvailable() {

@@ -6,7 +6,8 @@
         <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Verbinden Sie Ihre Wallet</h2>
         <p class="mt-2 text-center text-sm text-gray-600">
           Oder
-          <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">schicken Sie eine Bewerbung ab</a>
+          <router-link class="font-medium text-indigo-600 hover:text-indigo-500" to="/register">schicken Sie eine Bewerbung ab</router-link>
+
         </p>
       </div>
         <div>
