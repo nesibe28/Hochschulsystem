@@ -28,18 +28,6 @@ const routes: Array<RouteRecordRaw> = [
         import(/* webpackChunkName: "modules" */ '../views/SemesterFees.vue'),
   },
   {
-    path: '/wave-me',
-    name: 'WaveMe',
-    component: () =>
-      import(/* webpackChunkName: "wave" */ '../views/WaveMe.vue'),
-  },
-  {
-    path: '/lucky-number',
-    name: 'LuckyNumber',
-    component: () =>
-      import(/* webpackChunkName: "wave" */ '../views/LuckyNumber.vue'),
-  },
-  {
     path: '/about',
     name: 'About',
     // route level code-splitting

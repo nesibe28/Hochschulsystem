@@ -16,7 +16,7 @@
                   :class="
                 walletStore.walletData == null ? 'hover:bg-indigo-600' : ''
               "
-                  @click="getStudentData()"
+                  @click="connectWallet()"
                   class="group relative flex w-full justify-center rounded-md bg-indigo-400 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,26 +51,49 @@ import { ethers } from 'ethers'
 
 import StudentData from '@/artifacts/solidity/contracts/Studentmngmt.sol/Studentmngmt.json'
 import {address} from "hardhat/internal/core/config/config-validation";
+import useEmitter from '@/composables/useEmitter'
 
-interface Message {
-  from: string
-  text: string
-  datetime: Date
-}
 export default defineComponent({
   name: 'Login',
 
+
   setup() {
+    const emitter = useEmitter()
+
     const walletStore = useWalletStore()
     const contractAddress = process.env.VUE_APP_ADDRESS_STUDENT || ''
 
+    const isStudent = ref(false)
+    const isRegistered = ref(false)
     const students = ref<string[]>([])
-    const allMessages = ref<Message[]>([])
+    const profs = ref<string[]>([])
+    const sender = ref('')
+
+    const getProfs = async function () {
+      await connectWallet()
 
 
+      //@ts-expect-error Window.ethers not TS
+      if (typeof window.ethereum !== 'undefined') {
+        //@ts-expect-error Window.ethers not TS
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const contract = new ethers.Contract(
+            contractAddress,
+            StudentData.abi,
+            provider
+        )
+        console.log('provider ', provider)
+        try {
+          const data = await contract.getAllProfessorAddresses({})
+          profs.value = data
+          console.log('allProfs :>> ', profs.value)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    }
 
-
-    const getStudentData = async function () {
+    const getStudents = async function () {
       await connectWallet()
 
       //@ts-expect-error Window.ethers not TS
@@ -85,9 +108,8 @@ export default defineComponent({
         console.log('provider ', provider)
         try {
           const data = await contract.getAllStudentAddresses({})
-          console.log('allWaves :>> ', data)
-
-          // allMessages.value = data
+          students.value = data
+          console.log('allStudents :>> ', students.value)
         } catch (error) {
           console.error(error)
         }
@@ -95,25 +117,64 @@ export default defineComponent({
     }
 
     const connectWallet = async () => {
+
       try {
+
         // @ts-expect-error Window.ethereum not typed
         const data = await window.ethereum.request({
-          method: 'eth_requestAccounts',
+          method: 'eth_accounts',
         })
         console.log('data :>> ', data)
-        // this.userAddress = data[0]
-        walletStore.saveWalletData(data[0])
-        console.log('DApp connected to your wallet 💰')
+
+        for (let i = 0; i < students.value.length; i++) {
+          if(students.value[i] === ethers.utils.getAddress(data[0]) ) {
+            console.log(students.value[i], ethers.utils.getAddress(data[0]))
+            walletStore.saveWalletData(data[0])
+            isStudent.value = true;
+            isRegistered.value = true;
+            console.log('DApp connected to Students Wallet 💰')
+          } else {
+            isRegistered.value = false;
+            console.log('No student 💰')
+          }
+        }
+        for (let i = 0; i < profs.value.length; i++) {
+          if(profs.value[i] === ethers.utils.getAddress(data[0]) ) {
+            walletStore.saveWalletData(ethers.utils.getAddress(data[0]))
+            isStudent.value = false;
+            isRegistered.value = true;
+            console.log('DApp connected to Profs Wallet 💰')
+          } else {
+            isRegistered.value = false;
+            console.log('no prof 💰')
+          }
+
+        }
+        emitter.emit("isStudent", isStudent.value);
+        if(!isRegistered.value) {
+          console.log('You are not registered in the System! Please register')
+        }
+        emitter.emit("isLogged", isRegistered.value);
       } catch (error) {
         console.error('Error connecting DApp to your wallet')
       }
+
     }
     return {
-      getStudentData,
+      getStudents,
+      getProfs,
       connectWallet,
       walletStore,
-      //students,
+      students,
+      profs,
+      isStudent,
+      isRegistered
     }
+  },
+
+  mounted() {
+    this.getStudents();
+    this.getProfs();
   },
 })
 </script>

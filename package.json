@@ -6,9 +6,8 @@
   "author": "",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "contracts": "npx hardhat run ./solidity/scripts/run.js",
     "deploy": "npx hardhat run ./solidity/scripts/deploy.js --network localhost",
-    "deploy:rinkeby": "npx hardhat run ./solidity/scripts/deploy.js --network rinkeby",
+    "deploy:goerli": "npx hardhat run ./solidity/scripts/deploy.js --network goerli",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +16,7 @@
     "autoprefixer": "^9.8.8",
     "core-js": "^3.6.5",
     "dotenv": "^10.0.0",
+    "mitt": "^3.0.0",
     "pinia": "^2.0.0-rc.13",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"

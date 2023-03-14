@@ -19,99 +19,24 @@
       </tr>
       </thead>
       <tbody>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-          </div>
+      <tr  class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
+           v-for="fee in allFees" :key="fee.tokenID"
+      >
+        <td class="px-6 py-4">
+          {{fee.tokenID}}
         </td>
         <td class="px-6 py-4">
-          React Developer
+          {{fee.student}}
         </td>
         <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
-          </div>
+          {{fee.semester}}
         </td>
         <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
+          {{fee.isPayed}}
         </td>
-      </tr>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-          </div>
-        </td>
+
         <td class="px-6 py-4">
-          Designer
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
-          </div>
-        </td>
-        <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-        </td>
-      </tr>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <td class="px-6 py-4">
-          Vue JS Developer
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
-          </div>
-        </td>
-        <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-        </td>
-      </tr>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <td class="px-6 py-4">
-          UI/UX Engineer
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
-          </div>
-        </td>
-        <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
-        </td>
-      </tr>
-      <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <td class="w-4 p-4">
-          <div class="flex items-center">
-            <input id="checkbox-table-search-3" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-table-search-3" class="sr-only">checkbox</label>
-          </div>
-        </td>
-        <td class="px-6 py-4">
-          SEO Specialist
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex items-center">
-            <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div> Offline
-          </div>
-        </td>
-        <td class="px-6 py-4">
-          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
+          <button @click="payFee" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Bezahlen</button>
         </td>
       </tr>
       </tbody>
@@ -166,7 +91,7 @@ export default defineComponent(  {
           console.log('allCourses :>> ', data)
           data.forEach((fee: any) => {
             allFees.value.push({
-              tokenID: fee.ID.toString(),
+              tokenID: fee.tokenID.toString(),
               semester: fee.semester,
               student: fee.student,
               isPayed: fee.isPayed
@@ -213,6 +138,7 @@ export default defineComponent(  {
     return {
       getFees,
       payFee,
+      allFees,
       walletStore,
       tokenID,
       student,
