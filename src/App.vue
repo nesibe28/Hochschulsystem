@@ -8,7 +8,6 @@
       <router-link :to="{ name: 'Modules' }">Module 👋</router-link> |
       <router-link :to="{ name: 'SemesterFees' }">Semesterbeiträge 🎲</router-link> |
 
-      <router-link :to="{ name: 'About' }">About</router-link>
     </div>
   </div>
 </template>

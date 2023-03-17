@@ -143,37 +143,13 @@ contract Studentmngmt {
         studentsAddresses.push(_studentAddress);
     }
 
-    function getStudentDetails(address _student) public view returns (address, string memory, string memory, string memory, string memory, int) {
+    function getStudentDetails(address _student) public view returns (string memory, string memory, string memory, string memory, int) {
         Student memory s = students[_student];
-        return (msg.sender, s.fName, s.lName, s.regAddress, s.degree, s.semester);
+        return (s.fName, s.lName, s.regAddress, s.degree, s.semester);
     }
 
     function updateRegAddressStudent(string memory _regAddress) public onlyStudent {
         students[msg.sender].regAddress = _regAddress;
-    }
-
-    function enrollInCourse(int _courseID) public onlyStudent checkEnrollmentInCourse(_courseID) {
-        courses[_courseID].memberCount++;
-        coursesArray[uint256(_courseID)].memberCount++;
-        coursesArray.pop();
-        EnrolledCourse memory ec = EnrolledCourse(_courseID, msg.sender, "0.0", true, false);
-        eCourses[msg.sender].push(ec);
-    }
-
-    function unsubscribeFromCourse(int _courseID) public onlyStudent {
-        EnrolledCourse[] memory enrolledCourses = eCourses[msg.sender];
-        for(uint i; i < enrolledCourses.length; i++) {
-            if(enrolledCourses[i].ID == _courseID && enrolledCourses[i].student == msg.sender) {
-                require(!enrolledCourses[i].passed, "Course already passed, Unsubscription not possible");
-                courses[_courseID].memberCount--;
-                delete enrolledCourses[i];
-            }
-        }
-        eCourses[msg.sender].pop();
-    }
-
-    function getEnrolledCourses(address _student) public view returns(EnrolledCourse[] memory) {
-        return (eCourses[_student]);
     }
 
     function addNewCourse(int[] memory _requiredCourses, string memory _name, int _memberLimit, string memory _degree, int _semester, bool _isCourseRequired, address _createdByProf, bool _available) public onlyProfessor {
@@ -185,17 +161,44 @@ contract Studentmngmt {
         coursesArray.push(Course(courseCount, _name, _memberLimit, 0, _degree, _semester, _isCourseRequired, _createdByProf, _available));
     }
 
+    function enrollInCourse(int _courseID) public onlyStudent checkEnrollmentInCourse(_courseID) {
+        courses[_courseID].memberCount++;
+        coursesArray[uint256(_courseID)-1].memberCount++;
+        coursesArray.pop();
+        EnrolledCourse memory ec = EnrolledCourse(_courseID, msg.sender, "0.0", true, false);
+        eCourses[msg.sender].push(ec);
+    }
+
+    function unsubscribeFromCourse(int _courseID) public onlyStudent {
+        EnrolledCourse[] memory enrolledCourses = eCourses[msg.sender];
+        for(uint i; i < enrolledCourses.length; i++) {
+            if(enrolledCourses[i].ID == _courseID && enrolledCourses[i].student == msg.sender) {
+                require(!enrolledCourses[i].passed, "Course already passed, Unsubscription not possible");
+                courses[_courseID].memberCount--;
+                coursesArray[uint256(_courseID)-1].memberCount--;
+                delete enrolledCourses[i];
+            }
+        }
+        coursesArray.pop();
+        eCourses[msg.sender].pop();
+    }
+
+    function getEnrolledCourses(address _student) public view returns(EnrolledCourse[] memory) {
+        return (eCourses[_student]);
+    }
+
+    function updateMarkOfStudent(address _student, int _courseID, string memory _mark) public onlyProfessor {
+        EnrolledCourse[] memory enrolledCourses = eCourses[msg.sender];
+        for(uint i; i < enrolledCourses.length; i++) {
+            if(enrolledCourses[i].ID == _courseID) {
+                enrolledCourses[i].mark = _mark;
+            }
+        }
+        eCourses[msg.sender].pop();
+    }
+
     function getAllCourses() public view returns (Course[] memory) {
         return (coursesArray);
-    }
-
-    function getCourseDetails(int _courseID) public view returns (int, string memory, int, int, string memory, int, bool, address, bool) {
-        Course memory c = courses[_courseID];
-        return (_courseID, c.name, c.memberLimit, c.memberCount, c.degree, c.semester, c.isCourseRequired, c.createdByProf, c.available);
-    }
-
-    function getCourse(int _courseID) public view returns (Course memory) {
-        return (courses[_courseID]);
     }
 
     function getSemesterFees(address _student) public view onlyStudent returns(SemesterRegistration[] memory) {
@@ -203,23 +206,22 @@ contract Studentmngmt {
     }
 
     function addSemesterToPay(address _student, string memory _semester) public onlyProfessor {
-        SemesterRegistration memory fee = SemesterRegistration(0.0, _semester, _student, false);
+        tokenCount++;
+        SemesterRegistration memory fee = SemesterRegistration(tokenCount, _semester, _student, false);
         semesterFees[_student].push(fee);
     }
 
     function paySemester(string memory _semester) public payable onlyStudent {
         require(msg.value == 0.05 ether, "Value does not match SemesterFee!");
-        tokenCount++;
         SemesterRegistration[] memory fees = semesterFees[msg.sender];
         for(uint i; i < fees.length; i++) {
             if(compareStrings(fees[i].semester, _semester) && fees[i].student == msg.sender) {
                 require(!fees[i].isPayed, "Semester Fee already payed!");
                 fees[i].isPayed = true;
-                fees[i].tokenID = tokenCount;
+                newToken.pay(msg.sender, fees[i].tokenID);
             }
         }
         semesterFees[msg.sender].pop();
-        newToken.pay(msg.sender, tokenCount);
     }
 
     function compareStrings(string memory a, string memory b) private pure returns (bool) {

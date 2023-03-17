@@ -87,8 +87,8 @@ export default defineComponent(  {
             provider
         )
         try {
-          const data = await contract.getAllCourses({})
-          console.log('allCourses :>> ', data)
+          const data = await contract.getSemesterFees(walletStore.walletData)
+          console.log('allFees :>> ', data)
           data.forEach((fee: any) => {
             allFees.value.push({
               tokenID: fee.tokenID.toString(),
@@ -151,6 +151,7 @@ export default defineComponent(  {
   mounted() {
     if (this.walletStore.walletData !== null) {
       console.log('There is a wallet connected!')
+      this.getFees();
     }
   },
   computed: {

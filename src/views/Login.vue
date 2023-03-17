@@ -133,8 +133,8 @@ export default defineComponent({
             isStudent.value = true;
             isRegistered.value = true;
             console.log('DApp connected to Students Wallet 💰')
+            break;
           } else {
-            isRegistered.value = false;
             console.log('No student 💰')
           }
         }
@@ -144,8 +144,8 @@ export default defineComponent({
             isStudent.value = false;
             isRegistered.value = true;
             console.log('DApp connected to Profs Wallet 💰')
+            break;
           } else {
-            isRegistered.value = false;
             console.log('no prof 💰')
           }
 
