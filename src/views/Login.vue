@@ -129,7 +129,7 @@ export default defineComponent({
         for (let i = 0; i < students.value.length; i++) {
           if(students.value[i] === ethers.utils.getAddress(data[0]) ) {
             console.log(students.value[i], ethers.utils.getAddress(data[0]))
-            walletStore.saveWalletData(data[0])
+            walletStore.saveWalletData(ethers.utils.getAddress(data[0]))
             isStudent.value = true;
             isRegistered.value = true;
             console.log('DApp connected to Students Wallet 💰')

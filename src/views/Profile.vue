@@ -1,6 +1,6 @@
 <template>
   <div class="p-8 pl-40 pr-40">
-    <div class="p-8 bg-white shadow mt-24">
+    <div class="p-8 bg-purple-100 shadow mt-24">
       <div class="grid grid-cols-1 md:grid-cols-1">
 
         <h1 class="text-4xl font-medium text-gray-700">{{fname}} {{lname}}</h1>

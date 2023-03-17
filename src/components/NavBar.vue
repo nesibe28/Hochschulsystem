@@ -188,6 +188,7 @@
 
         <router-link
           :to="{ name: 'SemesterFees' }"
+          v-show="isRegistered && isStudent"
           class="
             text-gray-300
             hover:bg-gray-700 hover:text-white
@@ -203,6 +204,7 @@
 
         <router-link
           :to="{ name: 'Modules' }"
+          v-show="isRegistered && isStudent"
           class="
             text-gray-300
             hover:bg-gray-700 hover:text-white
@@ -218,6 +220,7 @@
 
         <router-link
             :to="{ name: 'ProfsPage' }"
+            v-show="isRegistered && !isStudent"
             class="
             text-gray-300
             hover:bg-gray-700 hover:text-white

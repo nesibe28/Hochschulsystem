@@ -20,23 +20,21 @@
       </thead>
       <tbody>
       <tr  class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
-           v-for="fee in allFees" :key="fee.tokenID"
+           v-for="fee in allFees" :key="fee.semester"
       >
-        <td class="px-6 py-4">
-          {{fee.tokenID}}
-        </td>
-        <td class="px-6 py-4">
-          {{fee.student}}
-        </td>
         <td class="px-6 py-4">
           {{fee.semester}}
         </td>
         <td class="px-6 py-4">
-          {{fee.isPayed}}
+          0.05 ETH
+        </td>
+        <td class="px-6 py-4" >
+          <p v-if="fee.isPayed == true">bezahlt</p>
+          <p v-else>nicht bezahlt</p>
         </td>
 
         <td class="px-6 py-4">
-          <button @click="payFee" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Bezahlen</button>
+          <button :disabled="isPayed" @click="payFee(fee.semester)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Bezahlen</button>
         </td>
       </tr>
       </tbody>
@@ -87,6 +85,7 @@ export default defineComponent(  {
             provider
         )
         try {
+          console.log(walletStore.walletData)
           const data = await contract.getSemesterFees(walletStore.walletData)
           console.log('allFees :>> ', data)
           data.forEach((fee: any) => {
@@ -103,7 +102,7 @@ export default defineComponent(  {
       }
     }
 
-    const payFee = async function () {
+    const payFee = async function (semester: number) {
       //@ts-expect-error Window.ethers not TS
       if (typeof window.ethereum !== 'undefined') {
         trxInProgress.value = true
@@ -120,13 +119,14 @@ export default defineComponent(  {
         )
         try {
           const transaction = await contract.paySemester(
-              semester.value
+              semester,
+              { value: ethers.utils.parseEther("0.05") }
           )
           // wait for the transaction to actually settle in the blockchain
           await transaction.wait()
           console.log('transaction :>> ', transaction)
-          //message.value = ''
-          semester.value = ''
+          isPayed.value = true
+          await getFees();
           trxInProgress.value = false
         } catch (error) {
           console.error(error)
@@ -146,12 +146,13 @@ export default defineComponent(  {
       semester,
       trxInProgress,
     }
-
   },
   mounted() {
     if (this.walletStore.walletData !== null) {
       console.log('There is a wallet connected!')
+      console.log(this.walletStore.walletData)
       this.getFees();
+      this.isPayed;
     }
   },
   computed: {

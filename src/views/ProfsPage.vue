@@ -153,7 +153,7 @@
           </div>
         </div>
       </div>
-      <button @click="addCourse" type="button" class="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button @click="addMark" type="button" class="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Note hinzufügen
       </button>
     </form>
@@ -323,6 +323,35 @@ export default defineComponent( {
       }
     }
 
+    const addMark = async function () {
+      //@ts-expect-error Window.ethers not TS
+      if (typeof window.ethereum !== 'undefined') {
+        trxInProgress.value = true
+        //@ts-expect-error Window.ethers not TS
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner()
+        const contract = new ethers.Contract(
+            contractAddress,
+            Studentmngmt.abi,
+            signer
+        )
+        try {
+          const transaction = await contract.updateMarkOfStudent(
+              studentForCourse.value, courseId.value, mark.value
+          )
+          await transaction.wait()
+          console.log('transaction :>> ', transaction)
+          studentForCourse.value = ''
+          courseId.value = 0
+          mark.value = ''
+          trxInProgress.value = false
+        } catch (error) {
+          console.error(error)
+          trxInProgress.value = false
+        }
+      }
+    }
+
     const addSemesterFee = async function () {
       //@ts-expect-error Window.ethers not TS
       if (typeof window.ethereum !== 'undefined') {
@@ -337,7 +366,7 @@ export default defineComponent( {
         )
         try {
           const transaction = await contract.addSemesterToPay(
-              student.value, semesterForFee.value
+              student.value, semesterForFee.value.toString()
           )
           await transaction.wait()
           console.log('transaction :>> ', transaction)
@@ -355,6 +384,7 @@ export default defineComponent( {
       addCourse,
       getCourses,
       addSemesterFee,
+      addMark,
       semesterForFee,
       student,
       emitter,

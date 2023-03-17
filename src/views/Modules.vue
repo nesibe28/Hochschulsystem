@@ -240,7 +240,8 @@ export default defineComponent( {
         try {
           console.log(courseId);
           const transaction = await contract.unsubscribeFromCourse(
-              courseId
+              courseId,
+          {gasLimit: 300000}
           )
           // wait for the transaction to actually settle in the blockchain
           await transaction.wait()
