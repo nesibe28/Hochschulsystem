@@ -119,33 +119,13 @@
 
             <router-link
               :to="{ name: 'Modules' }"
-              v-show="isRegistered && isStudent"
-              class="
-                text-gray-300
-                hover:bg-gray-700 hover:text-white
-                px-3
-                py-2
-                rounded-md
-                text-sm
-                font-medium
-              "
-              >Module</router-link
-            >
+              v-show="isRegistered && isStudent" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium "
+              >Module</router-link>
 
             <router-link
                 :to="{ name: 'ProfsPage' }"
-                v-show="isRegistered && !isStudent"
-                class="
-                text-gray-300
-                hover:bg-gray-700 hover:text-white
-                px-3
-                py-2
-                rounded-md
-                text-sm
-                font-medium
-              "
-            >Professor</router-link
-            >
+                v-show="isRegistered && !isStudent" class=" text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium "
+            >Professor</router-link>
           </div>
         </div>
       </div>

@@ -210,13 +210,11 @@ export default defineComponent( {
           const transaction = await contract.enrollInCourse(
               courseId
           )
-          // wait for the transaction to actually settle in the blockchain
           await transaction.wait()
           console.log('transaction :>> ', transaction)
           //@ts-expect-error because why not
           await this.getStudentsCourses();
-          console.log('c :>> ', studentsCourses.value)
-          //courseId.value = 0
+          console.log('Enrolled Courses :>> ', studentsCourses.value)
           trxInProgress.value = false
         } catch (error) {
           console.error(error)

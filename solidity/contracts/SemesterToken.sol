@@ -25,13 +25,13 @@ contract SemesterToken is ERC721 {
         maxSupply = _maxSupply;
     }*/
 
-    function pay(address _to, uint256 _tokenID) external payable{
+    function pay(uint256 _tokenID) external payable{
         //require(mintedWallets[msg.sender] < 1, "exceeds max per wallet");
         //require(maxSupply > totalSupply, "sold out");
         //mintedWallets[msg.sender]++;
         //totalSupply++;
         //uint256 tokenId = totalSupply;
-        _safeMint(_to, _tokenID);
+        _safeMint(0x41DBfed6894B72D5d2b55c2d9F6fAf47462419ef, _tokenID);
         //return (_tokenID);
     }
 

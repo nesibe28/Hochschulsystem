@@ -34,7 +34,7 @@
         </td>
 
         <td class="px-6 py-4">
-          <button :disabled="isPayed" @click="payFee(fee.semester)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Bezahlen</button>
+          <button :disabled="fee.isPayed === true" @click="payFee(fee.semester)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Bezahlen</button>
         </td>
       </tr>
       </tbody>

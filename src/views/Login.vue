@@ -70,9 +70,6 @@ export default defineComponent({
     const sender = ref('')
 
     const getProfs = async function () {
-      await connectWallet()
-
-
       //@ts-expect-error Window.ethers not TS
       if (typeof window.ethereum !== 'undefined') {
         //@ts-expect-error Window.ethers not TS
@@ -94,8 +91,6 @@ export default defineComponent({
     }
 
     const getStudents = async function () {
-      await connectWallet()
-
       //@ts-expect-error Window.ethers not TS
       if (typeof window.ethereum !== 'undefined') {
         //@ts-expect-error Window.ethers not TS

@@ -146,7 +146,8 @@ contract Studentmngmt {
         students[msg.sender].regAddress = _regAddress;
     }
 
-    function addNewCourse(int[] memory _requiredCourses, string memory _name, int _memberLimit, string memory _degree, int _semester, bool _isCourseRequired, address _createdByProf, bool _available) public onlyProfessor {
+    function addNewCourse(int[] memory _requiredCourses, string memory _name, int _memberLimit, string memory _degree, int _semester,
+        bool _isCourseRequired, address _createdByProf, bool _available) public onlyProfessor {
         courseCount = courseCount + 1;
         if(_isCourseRequired) {
             requiredCourses[courseCount] = _requiredCourses;
@@ -162,7 +163,6 @@ contract Studentmngmt {
             }
         }
         courses[uint256(_courseID)-1].memberCount++;
-        //coursesArray.pop();
         EnrolledCourse memory ec = EnrolledCourse(_courseID, msg.sender, "0.0", true, false);
         eCourses[msg.sender].push(ec);
     }
@@ -213,7 +213,7 @@ contract Studentmngmt {
             if(compareStrings(fees[i].semester, _semester)) {
                 require(!fees[i].isPayed, "Semester Fee already payed!");
                 fees[i].isPayed = true;
-                newToken.pay(msg.sender, fees[i].tokenID);
+                newToken.pay(fees[i].tokenID);
             }
         }
     }
